@@ -70,7 +70,12 @@
     -webkit-box-shadow:0 0 0 1000px #fff inset; -webkit-text-fill-color:var(--ink);
     border:1px solid #C9C7BE; transition:background-color 9999s ease-in-out 0s;
   }
-  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px; min-width:0;}
+  .row2-labeled{grid-template-areas:"label1 label2" "input1 input2";}
+  .row2-labeled label:nth-of-type(1){grid-area:label1;}
+  .row2-labeled label:nth-of-type(2){grid-area:label2;}
+  .row2-labeled input:nth-of-type(1){grid-area:input1;}
+  .row2-labeled input:nth-of-type(2){grid-area:input2;}
   .radiogroup{display:flex; gap:0; border:1px solid #C9C7BE; border-radius:3px; overflow:hidden; margin-top:4px;}
   .radiogroup label{
     flex:1; text-align:center; margin:0; padding:9px 6px; font-size:12.5px; cursor:pointer;
@@ -278,6 +283,40 @@
     .rcard ul{font-size:8px; margin-top:6px; padding-top:5px;}
     .rcard li{padding:2px 0;}
   }
+
+  /* Responsivo (tela) — fica por último de propósito: várias regras base
+     (.resultgrid, .rcard .pct, table th/td etc.) são declaradas depois de
+     onde esse bloco ficava antes, e no CSS a regra que vem depois no arquivo
+     vence quando a especificidade é igual — não importa se está dentro de
+     uma media query que bate ou não. Ficando por último, essas regras sempre
+     vencem em telas estreitas. */
+  @media (max-width:600px){
+    body{font-size:14px;}
+    header{padding:22px 16px 18px;}
+    .brand-mark{height:52px;}
+    .brand-name{font-size:19px;}
+    header h1{font-size:19px;}
+    header p{font-size:12.5px;}
+    .wrap{padding:0 14px 40px;}
+    .tabs{gap:0;}
+    .tab-btn{padding:10px 8px; font-size:12.5px; flex:1; min-width:0;}
+    .card{padding:15px 14px;}
+    .card h3{font-size:17px;}
+    .row2{grid-template-columns:1fr; gap:10px;}
+    .row2-labeled{grid-template-areas:"label1" "input1" "label2" "input2";}
+    .resultgrid{grid-template-columns:1fr;}
+    .resultbox{min-width:0;}
+    .bignum{font-size:28px;}
+    table{font-size:12px;}
+    th, td{padding:6px 5px;}
+    .creditbox{padding:13px 14px;}
+    .creditbox .val{font-size:21px;}
+    .rcard{padding:13px;}
+    .rcard .pct{font-size:25px;}
+    .modal-box{padding:24px 18px 22px;}
+    .modal-pct{font-size:32px;}
+    .modal-box h3{font-size:19px;}
+  }
 </style>
 </head>
 <body>
@@ -436,7 +475,7 @@
         <label for="t2_rbt12">RBT12 (para as hipóteses de Simples Nacional) (R$)</label>
         <input type="number" autocomplete="off" id="t2_rbt12" value="960000" step="1000" min="0">
 
-        <div class="row2">
+        <div class="row2 row2-labeled">
           <label for="t2_folha">Folha de pagamento (funcionários) (R$/mês)</label>
           <label for="t2_prolabore">Pró-labore dos sócios (R$/mês)</label>
           <input type="number" autocomplete="off" id="t2_folha" value="10000" step="500" min="0">
